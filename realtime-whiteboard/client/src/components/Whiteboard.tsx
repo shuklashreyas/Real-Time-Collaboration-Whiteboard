@@ -1,7 +1,7 @@
 // client/src/components/Whiteboard.tsx
 
 import React, { useRef, useEffect, useState } from 'react';
-import socketService from '/Users/shreyas/Desktop/WhiteBoardProj/realtime-whiteboard/client/services/socketService.ts';
+import socketService from '../services/socketService';
 
 interface WhiteboardProps {
   boardId: string;
