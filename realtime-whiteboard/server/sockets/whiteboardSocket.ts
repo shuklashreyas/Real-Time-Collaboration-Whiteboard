@@ -7,26 +7,19 @@ interface DrawData {
   prevY: number;
   x: number;
   y: number;
-  color: string;
+  color: string;        // can be '#000000' or '#ffffff' for eraser
   strokeWidth: number;
 }
 
 export default function registerWhiteboardSocketHandlers(io: Server) {
   io.on('connection', (socket: Socket) => {
-    console.log('New client connected:', socket.id);
-
     socket.on('joinBoard', (boardId: string) => {
       socket.join(boardId);
-      console.log(`Socket ${socket.id} joined board ${boardId}`);
     });
 
     socket.on('draw', (drawData: DrawData) => {
-      // Broadcast to everyone else in the room
+      // Re-broadcast to everyone except sender
       io.to(drawData.boardId).emit('onDraw', drawData);
-    });
-
-    socket.on('disconnect', () => {
-      console.log('Client disconnected:', socket.id);
     });
   });
 }
